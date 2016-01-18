@@ -18,11 +18,9 @@
 
     System.out.println(request.getHeader("x-forwarded-for"));
     out.println(request.getHeader("x-forwarded-for"));
-*/
-
     out.println(request);
     System.out.println(request);
-
+*/
 %>
 </body>
 </html>

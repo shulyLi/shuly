@@ -11,10 +11,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class testController {
 
-    @RequestMapping(value = "/nihao.html")
-    public ModelAndView loginCheck(HttpServletRequest request) {
+    @RequestMapping(value = "/login.html")
+    public ModelAndView login(HttpServletRequest request) {
         System.out.println("nihao");
-        return new ModelAndView("main");
-    }
 
+        return new ModelAndView("no");
+    }
+    @RequestMapping(value = "/register.html")
+    public ModelAndView register(HttpServletRequest request) {
+        System.out.println("nihao");
+
+        return new ModelAndView("ok");
+    }
 }
