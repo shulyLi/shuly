@@ -14,13 +14,11 @@ public class testController {
     @RequestMapping(value = "/login.html")
     public ModelAndView login(HttpServletRequest request) {
         System.out.println("nihao");
-
         return new ModelAndView("no");
     }
     @RequestMapping(value = "/register.html")
     public ModelAndView register(HttpServletRequest request) {
         System.out.println("nihao");
-
         return new ModelAndView("ok");
     }
 }
