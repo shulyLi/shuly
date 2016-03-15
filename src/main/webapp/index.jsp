@@ -5,7 +5,7 @@
 </head>
 <body bgcolor="white">
 <%
-    /*
+
     String userAgent = request.getHeader("User-Agent");
     out.println(userAgent);
     System.out.println(userAgent);
@@ -20,7 +20,7 @@
     out.println(request.getHeader("x-forwarded-for"));
     out.println(request);
     System.out.println(request);
-*/
+
 %>
 </body>
 </html>
