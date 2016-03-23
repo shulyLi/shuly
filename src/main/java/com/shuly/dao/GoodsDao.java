@@ -1,7 +1,5 @@
 package com.shuly.dao;
 
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

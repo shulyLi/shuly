@@ -1,6 +1,4 @@
 
-
-
 CREATE TABLE `goods` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(63) NOT NULL,
@@ -36,19 +34,20 @@ CREATE TABLE `message` (
   KEY `index_to_user` (`to_user`),
   KEY `index_create_time` (`create_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(63) NOT NULL,
-  `psword` varchar(63) NOT NULL,
-  `email` varchar(63) DEFAULT NULL,
+  `username` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `emailr` varchar(63) DEFAULT NULL,
   `telnum` varchar(11) DEFAULT NULL,
-  `level` int(8) NOT NULL DEFAULT '1',
+  `levelr` int(8) NOT NULL DEFAULT '1',
+  `last_ip` VARCHAR(20) NOT NULL DEFAULT '0.0.0.0',
   `last_visit_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `name` (`username`),
   KEY `index_telnum` (`telnum`),
-  KEY `index_email` (`email`),
+  KEY `index_email` (`emailr`),
   KEY `index_create_time` (`create_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 CREATE TABLE `visited` (
