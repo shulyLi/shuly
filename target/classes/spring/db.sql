@@ -1,13 +1,17 @@
 
 CREATE TABLE `goods` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(63) NOT NULL,
+  `goodname` varchar(63) NOT NULL,
+  `user_id` int(10) NOT NULL,
   `user_telnum` varchar(11) DEFAULT NULL,
   `pic_url` varchar(500) NOT NULL,
   `mes` varchar(1023) DEFAULT NULL,
+  `point` int(10) NOT NULL  DEFAULT 0,
   `create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `index_telnum` (`user_telnum`),
+  KEY `index_userId` (`user_id`),
+  KEY `index_point` (`point`),
   KEY `index_create_time` (`create_time`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 CREATE TABLE `leave_mes` (
@@ -23,6 +27,8 @@ CREATE TABLE `leave_mes` (
   KEY `index_to_goods` (`to_goods`),
   KEY `index_create_time` (`create_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `message` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `from_user` int(10) NOT NULL,

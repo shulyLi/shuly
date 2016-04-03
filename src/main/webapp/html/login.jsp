@@ -8,17 +8,17 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
     <!-- Font Awesome --><!-- Ionicons -->
-    <!--
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
         <!-- Theme style -->
-    <link rel="stylesheet" href="../dist/css/AdminLTE.css">
+    <link rel="stylesheet" href="/dist/css/AdminLTE.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
+    <link rel="stylesheet" href="/plugins/iCheck/square/blue.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,17 +30,17 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="../index.jsp"><b>Web</b>登陆</a>
+        <a href="/index.jsp"><b>Web</b>登陆</a>
     </div><!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">帐号登陆</p>
         <form action="/key/user/login" method="post">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email">
+                <input type="email" class="form-control" placeholder="Email" name = "email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" class="form-control" placeholder="Password" name = "password">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
@@ -50,10 +50,10 @@
                             <input type="checkbox"> Remember Me
                         </label>
                     </div>
-                </div><!-- /.col -->
+                </div>
                 <div class="col-xs-4">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                </div><!-- /.col -->
+                </div>
             </div>
         </form>
 
@@ -64,11 +64,11 @@
 </div><!-- /.login-box -->
 
 <!-- jQuery 2.1.4 -->
-<script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="../plugins/iCheck/icheck.js"></script>
+<script src="/plugins/iCheck/icheck.js"></script>
 <script>
     $(function () {
         $('input').iCheck({

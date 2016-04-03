@@ -5,12 +5,14 @@ import java.sql.Timestamp;
  */
 public class Good {
     int id;
-    String name;
+    String goodname;
+    int user_id;
     String user_telnum;
     String pic_url;
     String mes;
+    int point;
     Timestamp create_time;
-    public Good(){}
+    public Good(){id=-1;point =0;}
     public String getUser_telnum() {
         return user_telnum;
     }
@@ -27,12 +29,12 @@ public class Good {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getGoodname() {
+        return goodname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGoodname(String goodname) {
+        this.goodname = goodname;
     }
 
     public String getPic_url() {
@@ -59,8 +61,24 @@ public class Good {
         this.create_time = create_time;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
     @Override
     public String toString(){
-        return getName()+getPic_url()+getCreate_time()+getMes()+getUser_telnum()+"|||"+getId();
+        return getGoodname()+getPic_url()+getCreate_time()+getMes()+getUser_telnum()+"|||"+getId();
     }
 }

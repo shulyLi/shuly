@@ -15,15 +15,13 @@ public class User {
     String last_ip;
     Timestamp create_time;
     Timestamp last_visit_time;
-    public User(){
-        this.telnum="1";
-        this.levelr=1;
-        this.last_ip="0.0.0.0";
-        this.create_time=new Timestamp(System.currentTimeMillis());
-        this.last_visit_time=this.create_time;
+    public User() {
+        this.telnum = "1";
+        this.levelr = 1;
+        this.last_ip = "0.0.0.0";
+        this.create_time = new Timestamp(System.currentTimeMillis());
+        this.last_visit_time = this.create_time;
     }
-
-
     public int getId() {
         return id;
     }
