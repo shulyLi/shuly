@@ -9,16 +9,17 @@
 <%@ page isELIgnored="false" %>
 <html>
 <meta charset="utf-8">
+<meta http-equiv="refresh" content="2;url = /index.jsp">
 <head>
-    <title>sucess/home/shuly/webShuly/pic</title>
+    <title>sucess</title>
 </head>
 <body>
-<img src="/upload/pic/1459254728385m5szu2016-03-28屏幕截图.png1"  alt="上海鲜花港 - 郁金香" />
 yeah
 <%
     User user=(User)session.getAttribute("curUser");
-    out.print(user.getEmailr());
+    if(user != null)
+        out.print(user.getEmailr());
 %>
-<p>${_123}</p>
+
 </body>
 </html>

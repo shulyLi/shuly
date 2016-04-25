@@ -1,5 +1,10 @@
 package com.shuly.tool.pojo;
+import com.shuly.tool.table.ManagerGoodTable;
+
+import java.sql.Array;
 import java.sql.Timestamp;
+import java.util.Arrays;
+
 /**
  * Created by shuly on 16-3-1.
  */
@@ -7,18 +12,108 @@ public class Good {
     int id;
     String goodname;
     int user_id;
-    String user_telnum;
     String pic_url;
+    String detailPlace;
     String mes;
+    String judge;
     int point;
+    int ischeck;
     Timestamp create_time;
-    public Good(){id=-1;point =0;}
-    public String getUser_telnum() {
-        return user_telnum;
+    String tag;
+    String province;
+    int isshelf;
+    double price;
+    int number;
+    int tradenum;
+
+
+
+    public ManagerGoodTable toGoodTable(){
+        ManagerGoodTable key = new ManagerGoodTable();
+        key.setId(this.id);
+        key.setGoodname(this.goodname);
+        key.setPalce(this.province+','+this.detailPlace);
+        key.setPrice(this.price);
+        key.setNumber(this.number);
+        key.setTradeNum(this.tradenum);
+        System.out.println(this.judge);
+        String[] tmp = this.judge.trim().split("\\|");
+        if(tmp.length!=5){
+            key.setJudge("Wrong");
+        }
+        else{
+            StringBuilder out = new StringBuilder();
+            out.append("好评"+tmp[4]);
+            out.append(",");
+            out.append("差评"+tmp[0]);
+            key.setJudge(out.toString());
+        }
+        return key;
+    }
+    public int getTradenum() {
+        return tradenum;
     }
 
-    public void setUser_telnum(String user_telnum) {
-        this.user_telnum = user_telnum;
+    public void setTradenum(int tradenum) {
+        this.tradenum = tradenum;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public Good(){id=-1;point=0;}
+
+    public int getIsshelf() {
+        return isshelf;
+    }
+
+    public void setIsshelf(int isshelf) {
+        this.isshelf = isshelf;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getDetailPlace() {
+        return detailPlace;
+    }
+
+    public void setDetailPlace(String detailPlace) {
+        this.detailPlace = detailPlace;
+    }
+
+    public int getIscheck() {
+        return ischeck;
+    }
+
+    public void setIscheck(int ischeck) {
+        this.ischeck = ischeck;
     }
 
     public int getId() {
@@ -77,8 +172,11 @@ public class Good {
         this.point = point;
     }
 
-    @Override
-    public String toString(){
-        return getGoodname()+getPic_url()+getCreate_time()+getMes()+getUser_telnum()+"|||"+getId();
+    public String getJudge() {
+        return judge;
+    }
+
+    public void setJudge(String judge) {
+        this.judge = judge;
     }
 }

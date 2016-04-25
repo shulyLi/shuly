@@ -29,6 +29,7 @@
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
           p:dataSource-ref="dataSource" />
+    <bean id="keyJudge" class="com.shuly.tool.other.KeyJudge"/>
 
 </beans>
 

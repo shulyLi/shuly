@@ -1,31 +1,28 @@
 package com.shuly.web;
 import java.io.File;
 import java.sql.Timestamp;
-import java.util.Random;
+import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.shuly.service.KeyService;
+import com.shuly.tool.other.JsonResult;
+import com.shuly.tool.other.KeyJudge;
 import com.shuly.tool.pojo.Good;
 import com.shuly.tool.pojo.User;
+import com.shuly.tool.table.ManagerGoodTable;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.SystemPropertyUtils;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.servlet.ModelAndView;
-import com.shuly.dao.GoodsDao;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 /**
  * Created by shuly on 15-12-31.
  *
@@ -34,34 +31,53 @@ import java.util.Map;
 @RequestMapping("/good")
 public class GoodController {
 
-
+    @Autowired
+    KeyJudge keyJudge;
     @Autowired
     KeyService keyService;
-    @Autowired
-    GoodsDao goodsDao;
-    @RequestMapping(value = "/show.json")
+    @RequestMapping(value ="/find.json")
     @ResponseBody
-    public Object showGood(HttpServletRequest request ,HttpSession session,
-                           @RequestParam(value = "pageNum",required=false)Integer pageNum) {
-        //System.out.println(pageNum);
-        Map<String, Object> out = new HashMap<String, Object>();
-        List<Good> ans = goodsDao.getAll();
-        return ans;
+    public Object findGood(HttpServletRequest request ,HttpSession session,
+                           @RequestParam(value = "pageNum",required=false)Integer pageNum,
+                           @RequestParam(value = "province",required=false)String[] province,
+                           @RequestParam(value = "findData",required=false)String findData){
+        if(pageNum==null) return "fuck what are you doing!";
+        if(province != null && province.length>0){
+            for(int i=0;i < province.length;i++){
+                if(keyJudge.isProvinceOk(province[i]))continue;
+                return "fuck what are you doing?";
+            }
+        }
+        else {province = new String[0];}
+        return keyService.findGood(province,findData,pageNum);
     }
+
     @RequestMapping("/showGoodDetail")
     @ResponseBody
-    public Object benefitFileList(@RequestParam(value = "goodId", required = false) Integer id) throws Exception {
-        //Map<String, Object> out = new HashMap<String, Object>();
-        System.out.println("id:"+id);
-        Good ans = goodsDao.findById(id);
+    public Object benefitFileList(HttpServletRequest request,HttpSession session,
+                                  @RequestParam(value = "goodId", required = false) Integer id) throws Exception {
+        String IP = keyJudge.getIpAddr(request);
+        if(IP==null) IP = new String("NULL");
+        User user = null;
+        if(session.getAttribute("curUser")!=null){
+            user=(User)session.getAttribute("curUser");
+        }
+        Good ans = keyService.findGoodById(id,(user==null?-1:user.getId()),IP);
         return ans;
     }
+
     @RequestMapping("/add")
     public ModelAndView addGood(HttpServletRequest request,HttpSession session,
                                 @RequestParam(value = "pic",required=false) MultipartFile myfile,
                                 @RequestParam(value = "name",required=false) String name,
+                                @RequestParam(value = "s_province",required=false) String s_province,
+                                @RequestParam(value = "s_city",required=false) String s_city,
+                                @RequestParam(value = "s_county",required=false) String s_county,
+                                @RequestParam(value = "shortMes",required=false) String shortMes,
                                 @RequestParam(value = "describe",required=false) String describle
                                 ) throws IOException{
+
+
         User user = null;
         ModelAndView ans =new ModelAndView();
         if(session.getAttribute("curUser")!=null){
@@ -89,15 +105,45 @@ public class GoodController {
             ans.setViewName("success");
             Good tmp =new Good();
             tmp.setPic_url("/upload/pic/"+realName);
+            tmp.setTag(shortMes);
+            tmp.setIsshelf(0);
+            tmp.setProvince(s_province);
+            tmp.setDetailPlace(s_city+','+s_county);
 
+            tmp.setJudge("0|0|0|0|0");
             tmp.setGoodname(name);
             tmp.setMes(describle);
             tmp.setUser_id(user.getId());
-            tmp.setUser_telnum(user.getTelnum());
             tmp.setCreate_time(new Timestamp(System.currentTimeMillis()));
-            keyService.changeGood(tmp);
+            keyService.addGood(tmp);
         }
         return ans;
+    }
+    @RequestMapping("/myGood.json")
+    @ResponseBody
+    public Object getMyGood(HttpServletRequest request,HttpSession session,
+                            @RequestParam(value = "goodid",required=false)Integer goodId) {
+        User user = null;
+        if(session.getAttribute("curUser")!=null){
+            user=(User)session.getAttribute("curUser");
+        }
+        else{
+            //return JsonResult.ok("");
+            return JsonResult.error("没有登陆","/index.jsp");
+        }
+        if(goodId==null){
+            List<ManagerGoodTable> ans =new ArrayList<ManagerGoodTable>();
+            List<Good> tmp = keyService.findGoodByUser(user.getId());
+            if(tmp!=null)
+                for(Good item : tmp){
+                    ans.add(item.toGoodTable());
+                }
+            return JsonResult.ok(ans);
+        }
+        else{
+            Good tmp=keyService.findGoodById(goodId);
+            return JsonResult.ok(tmp.toGoodTable());
+        }
     }
     private String ramdomName(String head){
         String ans = head;

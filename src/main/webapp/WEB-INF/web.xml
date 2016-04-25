@@ -28,6 +28,7 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/key/*</url-pattern>
     </filter-mapping>
+
     <listener>
         <listener-class>
             org.springframework.web.context.ContextLoaderListener

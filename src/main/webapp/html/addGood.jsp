@@ -6,52 +6,115 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" %>
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>addGood</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="/js/jquery-2.2.2.min.js" rel="stylesheet" media="screen">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<%@include file="/head.jsp"%>
+<div class="wrapper">
+    <%@include file="/meue.jsp"%>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Fixed Layout
+                <small>Blank example to the fixed layout</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#">Layout</a></li>
+                <li class="active">Fixed</li>
+            </ol>
+        </section>
+        <!-- Main content --  -->
+        <section class="content" >
+            <div class ='row'>
+                <div class ="col-sm-10 col-sm-offset-1">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Quick Example</h3>
+                        </div><!-- /.box-header -->
+                        <!-- form start -->
+                        <form  role="form" enctype="multipart/form-data" method="post" action = "/key/good/add">
+                            <div class="box-body">
+                                <div class="form-group col-sm-6">
+                                    <label for="name" >货物名称</label>
+                                    <input type="text" class="form-control" id="name" name = 'name' placeholder="输入">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="name" >简短描述</label>
+                                    <input type="text" class="form-control" id="shortMes" name = 'shortMes' placeholder="输入">
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="describe">长篇描述</label>
+                                    <textarea class="form-control" rows="4" id = "describe" name="describe" placeholder="输入"></textarea>
+                                </div>
 
-    <![endif]-->
+                                <div class="form-group col-sm-3" >
+                                    <label>原产地国家</label>
+                                    <select class="form-control" disabled="disabled" style="width: 100%;">
+                                        <option selected="selected">中国</option>
 
-</head>
+                                    </select>
+                                </div>
 
-<body>
-    <div class="container">
-        <div class ="col-md-5 col-md-offset-3">
-            <form class ="form-horizontal" role="form" enctype="multipart/form-data" method="post"
-                action = "/key/good/add">
-                    <div class="form-group">
-                        <label for="name" >货物名称</label>
-                        <input type="text" class="form-control" id="name" name = 'name'placeholder="输入">
-                    </div>
+                                <div class="form-group col-sm-3" >
+                                    <label>省份</label>
+                                    <select class="form-control select2" id ="s_province" name="s_province" style="width: 100%;">
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    <label>地级市</label>
+                                    <select class="form-control select2" id="s_city" name='s_city' style="width: 100%;">
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-3" >
+                                    <label>市、县级市</label>
+                                    <select class="form-control select2" id="s_county" name="s_county" style="width: 100%;">
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <label for="pic">File input</label>
+                                    <input type="file" id="pic" name="pic">
+                                    <p class="help-block">图片格式PNG和JPG</p>
+                                </div>
 
-                    <div class="form-group">
-                        <label for="describe">Textarea</label>
-                        <textarea class="form-control" rows="4" id = "describe" name="describe" placeholder="输入"></textarea>
-                    </div>
+                            </div><!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div><!-- /.box -->
+                </div>
 
-                    <div class="form-group">
-                        <label for="pic">File input</label>
-                        <input type="file" id="pic" name="pic">
-                        <p class="help-block">图片格式PNG和JPG</p>
-                    </div>
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-default">取消</button>
-                        <button type="submit" class="btn btn-info pull-right">提交</button>
-                    </div>
-            </form>
-        </div>
-    </div>
-    <script src="/js/jquery-2.2.2.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
+                <div class ="col-sm-5 col-sm-offset-3">
+
+
+                </div>
+            </div>
+        </section>
+    </div><!-- /.content-wrapper -->
+    <!-- Main Footer -->
+    <%@include file="/foot.jsp"%>
+</div><!-- ./wrapper -->
+    <!-- REQUIRED JS SCRIPTS -->
+    <%@include file="/js.jsp"%>
+<script src="/js/area.js"></script>
+<script>
+    _init_area();
+    $(".select2").select2();
+
+</script>
+
+<!-- Optionally, you can add Slimscroll and FastClick plugins.
+     Both of these plugins are recommended to enhance the
+     user experience. Slimscroll is required when using the
+     fixed layout. -->
 </body>
 </html>
+
+

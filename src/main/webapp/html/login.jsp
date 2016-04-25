@@ -11,10 +11,9 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
     <!-- Font Awesome --><!-- Ionicons -->
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
+    <link rel="stylesheet" href="/dist/font-awesome-4.4.0/css/font-awesome.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/dist/ionicons-2.0.1/css/ionicons.css">
         <!-- Theme style -->
     <link rel="stylesheet" href="/dist/css/AdminLTE.css">
     <!-- iCheck -->
@@ -36,11 +35,11 @@
         <p class="login-box-msg">帐号登陆</p>
         <form action="/key/user/login" method="post">
             <div class="form-group has-feedback">
-                <input type="email" class="form-control" placeholder="Email" name = "email">
+                <input type="text" class="form-control" placeholder="text" name = "name" id = 'name'>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password" name = "password">
+                <input type="password" class="form-control" placeholder="Password" name = "password" id ='pswd'>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
             <div class="row">
@@ -52,13 +51,13 @@
                     </div>
                 </div>
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button id ="loginSub" type="button" class="btn btn-primary btn-block btn-flat">Sign In</button>
                 </div>
             </div>
         </form>
 
         <a href="#">shit!忘记密码了</a><br>
-        <a href="register.jsp" class="text-center">注册一个账户</a>
+        <a href="/html/register.jsp" class="text-center">注册一个账户</a>
 
     </div><!-- /.login-box-body -->
 </div><!-- /.login-box -->
@@ -77,6 +76,47 @@
             increaseArea: '20%' // optional
         });
     });
+
+    $("#loginSub").click(function () {
+
+        var name= $("#name").val();
+        var pswd= $("#pswd").val();
+        if(name.length<4 || name.length >15){
+            alert("名字长度[4,15]");
+            return ;
+        }
+        if(pswd.length<5||pswd.length>20){
+            alert("密码长度范围[5,20]")
+            return ;
+        }
+        $.ajax({
+            url:'/key/user/login',
+            data :{
+                "name":name,
+                "password":pswd
+            },
+            dataType:"json",   //返回格式为json
+            async:true, //请求是否异步，默认为异步，这也是ajax重要特性
+            type:"post",   //请求方式
+            traditional:true,
+            beforeSend:function() {
+
+            },
+            success:function(data) {
+                if(data.goto!=""){
+                    window.location.href=data.goto;
+                }
+                else if(data.msg!=""){
+                    alert(data.msg);
+                    return ;
+                }
+            },
+            complete:function() {
+            },
+            error:function() {
+            }
+        });
+    })
 </script>
 </body>
 </html>

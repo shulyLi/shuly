@@ -10,18 +10,43 @@ public class User {
     String username;
     String password;
     String emailr;
+    String add;
     String telnum;
     int levelr;
-    String last_ip;
+    int point;
+    int utype;
+    int ischeck;
     Timestamp create_time;
     Timestamp last_visit_time;
-    public User() {
-        this.telnum = "1";
-        this.levelr = 1;
-        this.last_ip = "0.0.0.0";
-        this.create_time = new Timestamp(System.currentTimeMillis());
-        this.last_visit_time = this.create_time;
+    String pic;
+
+    public String getPic() {
+        return pic;
     }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
+
+    public String getAdd() {
+        return add;
+    }
+
+    public void setAdd(String add) {
+        this.add = add;
+    }
+
+    public User() {
+    }
+
+    public int getIscheck() {
+        return ischeck;
+    }
+
+    public void setIscheck(int ischeck) {
+        this.ischeck = ischeck;
+    }
+
     public int getId() {
         return id;
     }
@@ -70,14 +95,6 @@ public class User {
         this.levelr = levelr;
     }
 
-    public String getLast_ip() {
-        return last_ip;
-    }
-
-    public void setLast_ip(String last_ip) {
-        this.last_ip = last_ip;
-    }
-
     public Timestamp getCreate_time() {
         return create_time;
     }
@@ -92,6 +109,22 @@ public class User {
 
     public void setLast_visit_time(Timestamp last_visit_time) {
         this.last_visit_time = last_visit_time;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+    public int getUtype() {
+        return utype;
+    }
+
+    public void setUtype(int utype) {
+        this.utype = utype;
     }
 
     @Override
