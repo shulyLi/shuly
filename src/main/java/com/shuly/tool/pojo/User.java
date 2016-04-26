@@ -37,6 +37,7 @@ public class User {
     }
 
     public User() {
+        id =-1;
     }
 
     public int getIscheck() {

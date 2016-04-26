@@ -37,9 +37,7 @@ function addDiv(item){
     //alert(divStr);
     father.append(divStr);
 }
-function arrivedAtBottom() {
-    return $(document).scrollTop() + $(window).height() == $(document).height();
-}
+
 
 /*
 $(function(){
@@ -94,11 +92,13 @@ function startData(){
     init();
     getData();
 }
+function arrivedAtBottom() {
+    return Math.abs($(document).scrollTop() + $(window).height() - $(document).height())<=0.23;
+}
 function _initShow(){
     startData();
     $(window).scroll(function(){
         if(arrivedAtBottom()) {
-            //alert("哦哦,到底了.");
             getData();
         }
     });

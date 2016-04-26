@@ -53,16 +53,7 @@ public class MailDao {
         final Mail ans= new Mail();
         jdbcTemplate.query(sql,params,new RowCallbackHandler(){
             public void processRow(ResultSet rs) throws SQLException {
-                ans.setId(rs.getInt("id"));
-                ans.setOwner_id(rs.getInt("owner_id"));
-                ans.setFrom_user(rs.getString("from_user"));
-                ans.setTo_user(rs.getString("to_user"));
-                ans.setHead(rs.getString("head"));
-                ans.setMes(rs.getString("mes"));
-                ans.setCreate_time(rs.getTimestamp("create_time"));
-                ans.setIsread(rs.getInt("isread"));
-                ans.setMailtype(rs.getInt("mailtype"));
-                ans.setFilerar(rs.getString("fileRar"));
+                tool(rs,ans);
             }
         });
         return ans.getId()==-1?null:ans;
@@ -83,5 +74,17 @@ public class MailDao {
             tmp.setFilerar(rs.getString("fileRar"));
             return tmp;
         }
+    }
+    public void  tool(ResultSet rs,Mail ans)throws SQLException{
+        ans.setId(rs.getInt("id"));
+        ans.setOwner_id(rs.getInt("owner_id"));
+        ans.setFrom_user(rs.getString("from_user"));
+        ans.setTo_user(rs.getString("to_user"));
+        ans.setHead(rs.getString("head"));
+        ans.setMes(rs.getString("mes"));
+        ans.setCreate_time(rs.getTimestamp("create_time"));
+        ans.setIsread(rs.getInt("isread"));
+        ans.setMailtype(rs.getInt("mailtype"));
+        ans.setFilerar(rs.getString("fileRar"));
     }
 }

@@ -17,7 +17,6 @@ import java.util.List;
 public class UserDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
     public int getMatchCountForRegister(String telnum,String name) {
         String sqlStr = " SELECT count(*) FROM user "
                 + " WHERE telnum =? or username =?";
@@ -27,70 +26,34 @@ public class UserDao {
         String sqlStr = " SELECT * FROM user "
                 + " WHERE `username` =? and password=? ";
         final User ans= new User();
-        ans.setId(-1);
         jdbcTemplate.query(sqlStr, new Object[] { name,password },new RowCallbackHandler(){
             public void processRow(ResultSet rs) throws SQLException {
-                ans.setId(rs.getInt("id"));
-                ans.setUsername(rs.getString("username"));
-                ans.setEmailr(rs.getString("emailr"));
-                ans.setAdd(rs.getString("add"));
-                ans.setTelnum(rs.getString("telnum"));
-                ans.setLevelr(rs.getInt("levelr"));
-                ans.setPoint(rs.getInt("point"));
-                ans.setUtype(rs.getInt("utype"));
-                ans.setIscheck(rs.getInt("ischeck"));
-                ans.setCreate_time(rs.getTimestamp("create_time"));
-                ans.setLast_visit_time(rs.getTimestamp("last_visit_time"));
-                ans.setPic(rs.getString("pic"));
+                tool(rs,ans);
             }
         });
         return ans.getId()==-1?null:ans;
     }
-
+    public User getById(Integer id){
+        String sql = "select * from user where id = ?";
+        Object[] params = new Object[] {id};
+        final User ans= new User();
+        jdbcTemplate.query(sql,params,new RowCallbackHandler(){
+            public void processRow(ResultSet rs) throws SQLException {
+                tool(rs,ans);
+            }
+        });
+        return ans.getId()==-1?null:ans;
+    }
     public User getByName(String name){
         String sql = "select * from user where username = ?";
         Object[] params = new Object[] {name};
         final User ans= new User();
         jdbcTemplate.query(sql,params,new RowCallbackHandler(){
             public void processRow(ResultSet rs) throws SQLException {
-                ans.setId(rs.getInt("id"));
-                ans.setUsername(rs.getString("username"));
-                ans.setEmailr(rs.getString("emailr"));
-                ans.setAdd(rs.getString("add"));
-                ans.setTelnum(rs.getString("telnum"));
-                ans.setLevelr(rs.getInt("levelr"));
-                ans.setPoint(rs.getInt("point"));
-                ans.setUtype(rs.getInt("utype"));
-                ans.setIscheck(rs.getInt("ischeck"));
-                ans.setCreate_time(rs.getTimestamp("create_time"));
-                ans.setLast_visit_time(rs.getTimestamp("last_visit_time"));
-                ans.setPic(rs.getString("pic"));
+                tool(rs,ans);
             }
         });
-        return ans;
-    }
-    public User getUserByEmail(String email){
-        String sql = "select * from user where emailr = ?";
-        Object[] params = new Object[] {email};
-        final User ans= new User();
-        jdbcTemplate.query(sql,params,new RowCallbackHandler(){
-            public void processRow(ResultSet rs) throws SQLException {
-                ans.setId(rs.getInt("id"));
-                ans.setUsername(rs.getString("username"));
-                ans.setEmailr(rs.getString("emailr"));
-                ans.setAdd(rs.getString("add"));
-                ans.setTelnum(rs.getString("telnum"));
-                ans.setLevelr(rs.getInt("levelr"));
-
-                ans.setPoint(rs.getInt("point"));
-                ans.setUtype(rs.getInt("utype"));
-                ans.setIscheck(rs.getInt("ischeck"));
-                ans.setCreate_time(rs.getTimestamp("create_time"));
-                ans.setLast_visit_time(rs.getTimestamp("last_visit_time"));
-                ans.setPic(rs.getString("pic"));
-            }
-        });
-        return ans;
+        return ans.getId()==-1?null:ans;
     }
     public List<User> getUserByUserName(final String userName) {
         String sql = " SELECT * "
@@ -138,7 +101,18 @@ public class UserDao {
             return user;
         }
     }
-
-
-
+    public void  tool(ResultSet rs,User ans)throws SQLException{
+        ans.setId(rs.getInt("id"));
+        ans.setUsername(rs.getString("username"));
+        ans.setEmailr(rs.getString("emailr"));
+        ans.setAdd(rs.getString("add"));
+        ans.setTelnum(rs.getString("telnum"));
+        ans.setLevelr(rs.getInt("levelr"));
+        ans.setPoint(rs.getInt("point"));
+        ans.setUtype(rs.getInt("utype"));
+        ans.setIscheck(rs.getInt("ischeck"));
+        ans.setCreate_time(rs.getTimestamp("create_time"));
+        ans.setLast_visit_time(rs.getTimestamp("last_visit_time"));
+        ans.setPic(rs.getString("pic"));
+    }
 }

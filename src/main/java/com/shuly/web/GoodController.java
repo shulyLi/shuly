@@ -62,10 +62,9 @@ public class GoodController {
         if(session.getAttribute("curUser")!=null){
             user=(User)session.getAttribute("curUser");
         }
-        Good ans = keyService.findGoodById(id,(user==null?-1:user.getId()),IP);
-        return ans;
+        Object ans = keyService.findGoodDetail(id,(user==null?-1:user.getId()),IP);
+        return JsonResult.ok(ans);
     }
-
     @RequestMapping("/add")
     public ModelAndView addGood(HttpServletRequest request,HttpSession session,
                                 @RequestParam(value = "pic",required=false) MultipartFile myfile,
@@ -145,6 +144,7 @@ public class GoodController {
             return JsonResult.ok(tmp.toGoodTable());
         }
     }
+
     private String ramdomName(String head){
         String ans = head;
         Date tmp = new Date();

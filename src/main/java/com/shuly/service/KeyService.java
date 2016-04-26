@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by shuly on 16-3-22.
@@ -37,9 +39,6 @@ public class KeyService {
     public User isLogin(String name,String password){
         return userDao.getForLogin(name,password);
     }
-    public User getUserByEmail(String email){
-        return userDao.getUserByEmail(email);
-    }
     public void updateUser(User user){
 
     }
@@ -56,14 +55,19 @@ public class KeyService {
     public Good findGoodById(Integer goodId){
         return goodsDao.findById(goodId);
     }
-    public Good findGoodById(Integer goodId,int userId,String IP){
+    public Map<String,Object> findGoodDetail(Integer goodId,int userId,String IP){
         Visite tmp = new Visite();
         tmp.setGood_id(goodId);
         tmp.setUser_id(userId);
         tmp.setIp(IP);
         tmp.setCreate_time(new Timestamp(System.currentTimeMillis()));
         visiteDao.add(tmp);
-        return goodsDao.findById(goodId);
+        Good good = goodsDao.findById(goodId);
+        User user = userDao.getById(good.getUser_id());
+        Map<String,Object> hash = new HashMap();
+        hash.put("owner",user);
+        hash.put("good",good);
+        return hash;
     }
     public List<Good>findGood(String []province,String findData,Integer pageNum){
         return goodsDao.findGood(province,findData,pageNum);

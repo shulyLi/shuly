@@ -40,7 +40,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
                             <h3 class="profile-username text-center">Nina Mcintire</h3>
                             <p class="text-muted text-center">Software Engineer</p>
-
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
                                     <b>Followers</b> <a class="pull-right">1,322</a>

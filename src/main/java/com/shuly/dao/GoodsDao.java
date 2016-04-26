@@ -59,25 +59,10 @@ public class GoodsDao {
         final Good tmp= new Good();
         jdbcTemplate.query(sql,params,new RowCallbackHandler(){
             public void processRow(ResultSet rs) throws SQLException {
-                tmp.setId(rs.getInt("id"));
-                tmp.setGoodname(rs.getString("goodname"));
-                tmp.setUser_id(rs.getInt("user_id"));
-                tmp.setPic_url(rs.getString("pic_url"));
-                tmp.setDetailPlace(rs.getString("detailPlace"));
-                tmp.setMes(rs.getString("mes"));
-                tmp.setPoint(rs.getInt("point"));
-                tmp.setJudge(rs.getString("judge"));
-                tmp.setIscheck(rs.getInt("ischeck"));
-                tmp.setCreate_time(rs.getTimestamp("create_time"));
-                tmp.setTag(rs.getString("tag"));
-                tmp.setProvince(rs.getString("province"));
-                tmp.setIsshelf(rs.getInt("isshelf"));
-                tmp.setNumber(rs.getInt("number"));
-                tmp.setPrice(rs.getDouble("price"));
-                tmp.setTradenum(rs.getInt("tradeNum"));
+                tool(rs,tmp);
             }
         });
-        return(tmp != null ) ? tmp : null;
+        return tmp.getId()==-1 ?  null:tmp;
     }
     public List<Good> findByUserId(int id){
         String sql = "select * from goods where user_id = ?";
@@ -122,7 +107,27 @@ public class GoodsDao {
             tmp.setNumber(rs.getInt("number"));
             tmp.setPrice(rs.getDouble("price"));
             tmp.setTradenum(rs.getInt("tradeNum"));
+            tmp.to();
             return tmp;
         }
+    }
+    public void  tool(ResultSet rs,Good ans)throws SQLException{
+        ans.setId(rs.getInt("id"));
+        ans.setGoodname(rs.getString("goodname"));
+        ans.setUser_id(rs.getInt("user_id"));
+        ans.setPic_url(rs.getString("pic_url"));
+        ans.setDetailPlace(rs.getString("detailPlace"));
+        ans.setMes(rs.getString("mes"));
+        ans.setPoint(rs.getInt("point"));
+        ans.setJudge(rs.getString("judge"));
+        ans.setIscheck(rs.getInt("ischeck"));
+        ans.setCreate_time(rs.getTimestamp("create_time"));
+        ans.setTag(rs.getString("tag"));
+        ans.setProvince(rs.getString("province"));
+        ans.setIsshelf(rs.getInt("isshelf"));
+        ans.setNumber(rs.getInt("number"));
+        ans.setPrice(rs.getDouble("price"));
+        ans.setTradenum(rs.getInt("tradeNum"));
+        ans.to();
     }
 }

@@ -34,61 +34,68 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Box Comment -->
                     <div class="box box-widget">
                         <div class='box-header with-border'>
-                            <div class='user-block'>
-                                <img class='img-circle' src='../dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'><a href="#">Master.</a></span>
+
+                            <div id = 'goodOwner' class='user-block'>
+                                <img class='img-circle' src='/upload/head/default_head.jpg' alt='user image'>
+                                <span class='username'><a href="#">"    "</a></span>
                                 <span class='description'>商品主</span>
                             </div><!-- /.user-block -->
+
                             <div class='box-tools'>
                                 <button class='btn btn-box-tool' data-toggle='tooltip' title='Mark as read'><i class='fa fa-circle-o'></i></button>
                                 <button class='btn btn-box-tool' data-widget='collapse'><i class='fa fa-minus'></i></button>
                                 <button class='btn btn-box-tool' data-widget='remove'><i class='fa fa-times'></i></button>
                             </div><!-- /.box-tools -->
+
                         </div><!-- /.box-header -->
                         <div class='box-body'>
+
                             <div class="col-sm-6">
                                 <div class="box box-widget">
                                     <div class='box-body'>
-                                        <img class="img-responsive pad" src="/upload/pic/11461562178930ri43y大金星山楂.jpg" alt="Photo">
+                                        <img class="img-responsive img-rounded" src="/upload/pic/11461562178930ri43y大金星山楂.jpg" alt="Photo">
                                     </div>
                                 </div>
-
                             </div>
+
                             <div class="col-sm-6">
+
                                 <div class="box box-widget">
-                                    <div class="box-header with-border">
-                                        <h4 class="text-center"><strong>核桃</strong></h4>
-                                    </div>
-                                    <div class="box-footer" style="background:#FFF2E8; ">
-                                        简短描述：从济南到临沂，让你真心的喜欢
-                                    </div>
-                                    <div class="box-footer" style="background:#FFF2E8; ">
-                                        掌柜的信誉评分：20
-                                    </div>
-                                    <div class="box-footer" style="background:#FFF2E8; ">
-                                        商品评分：20
-                                    </div>
-                                    <div class="box-footer" style="background:#FFF2E8; ">
-                                        原产地：山东省 临沂市 兰山区
-                                    </div>
-                                    <div class="box-footer" style="background:#FFF2E8; ">
-                                        库存    : 20 Kg
-                                    </div>
-                                    <div class="box-footer" style="background:#FFF2E8; ">
-                                        价格    : 45¥
-                                    </div>
-                                    <div class="box-footer">
-                                        <div class="col-md-5">
-                                            <a class="btn btn-block btn-social btn-success">
-                                                <i class="fa  fa-heart"></i> 收藏
-                                            </a>
-                                        </div>
-                                            <div class="col-md-5 col-md-offset-1">
-                                            <a class="btn btn-block btn-social btn-danger">
-                                                <i class="fa  fa-heart"></i> 填写订单
-                                            </a>
-                                        </div>
-                                    </div>
+                                    <div class="box-body box-profile">
+                                        <h3 class="profile-username text-center">山楂</h3>
+                                        <p class="text-muted text-center">从济南到临沂，让你真心的喜欢</p>
+                                        <ul class="list-group list-group-unbordered">
+                                            <li class="list-group-item">
+                                                <b>掌柜的信誉评分</b> <a class="pull-right">50</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>商品评分</b> <a class="pull-right">50</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>原产地</b> <a class="pull-right">山东省 临沂市 兰山区</a>
+                                            </li>
+
+                                            <li class="list-group-item">
+                                                <b>库存</b> <a class="pull-right">20 kg</a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>价格</b> <a class="pull-right">20¥</a>
+                                            </li>
+                                            <li class="list-group-item col-md-12">
+                                                <div class="col-md-5">
+                                                    <a class="btn btn-block btn-social btn-success">
+                                                        <i class="fa  fa-heart"></i> 收藏
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-5 col-md-offset-1">
+                                                    <a class="btn btn-block btn-social btn-danger">
+                                                        <i class="fa fa-shopping-cart"></i> 填写订单
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div><!-- /.box-body -->
+
                                 </div>
                             </div>
                             <!-- Social sharing buttons -->
@@ -143,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <%@include file="/js.jsp"%>
 <script src="/js/showGood.js"></script>
 <script>
-
+    goodDetailInit();
 </script>
 <!-- AdminLTE for demo purposes -->
 <!-- page script -->

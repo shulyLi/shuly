@@ -107,6 +107,17 @@ function mailTable(){
             //alert("start");
         },
         success:function(data) {
+            var flag = 0;
+            if(data.msg!=""){
+                alert(data.msg);
+                flag = 1;
+            }
+            if(data.goto!=""){
+                window.location.href=data.goto;
+                flag =1 ;
+            }
+            if(flag ==1) return null;
+
             mail = data;
             pageNum=0;
             drawMail();
@@ -136,11 +147,16 @@ function sendMail(mType){
 
         },
         success:function(data) {
+            var flag = 0;
             if(data.msg!=""){
                 alert(data.msg);
-                return null;
+                flag = 1;
             }
-            window.location.href=window.location.href;
+            if(data.goto!=""){
+                window.location.href=data.goto;
+                flag =1 ;
+            }
+            if(flag ==1) return null;
         },
         complete:function() {
         },
@@ -162,13 +178,18 @@ function getMail(id){
 
         },
         success:function(data) {
+            var flag = 0;
             if(data.msg!=""){
                 alert(data.msg);
-                return null;
+                flag = 1;
             }
-            else{
-                showMail(data.data);
+            if(data.goto!=""){
+                window.location.href=data.goto;
+                flag =1 ;
             }
+            if(flag ==1) return null;
+
+            showMail(data.data);
         },
         complete:function() {
         },

@@ -21,13 +21,27 @@ public class Good {
     Timestamp create_time;
     String tag;
     String province;
+    Integer[] intJudge ;
     int isshelf;
     double price;
     int number;
     int tradenum;
-
-
-
+    public void to(){
+        String []tmp=judge.trim().split("\\|");
+        for(int i=0;i<tmp.length;++i){
+            intJudge[i]=Integer.valueOf(tmp[i]);
+        }
+    }
+    public void back(){
+        StringBuilder tmp = new StringBuilder();
+        for(int i=0;i<intJudge.length;++i){
+            tmp.append(intJudge[i].toString());
+            if(i!=intJudge.length-1){
+                tmp.append("|");
+            }
+        }
+        judge = tmp.toString();
+    }
     public ManagerGoodTable toGoodTable(){
         ManagerGoodTable key = new ManagerGoodTable();
         key.setId(this.id);
@@ -74,7 +88,7 @@ public class Good {
         this.number = number;
     }
 
-    public Good(){id=-1;point=0;}
+    public Good(){id=-1;point=0;intJudge = new Integer[5];}
 
     public int getIsshelf() {
         return isshelf;
@@ -178,5 +192,13 @@ public class Good {
 
     public void setJudge(String judge) {
         this.judge = judge;
+    }
+
+    public Integer[] getIntJudge() {
+        return intJudge;
+    }
+
+    public void setIntJudge(Integer[] intJudge) {
+        this.intJudge = intJudge;
     }
 }

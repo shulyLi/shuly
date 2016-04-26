@@ -39,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="input-group col-sm-6 col-sm-offset-3">
                 <input type="text" class="form-control" id ="findData" name = "findData">
                 <div class="input-group-btn">
-                  <button type="button" class="btn btn-danger" id = "find">搜索</button>
+                  <button type="button" class="btn btn-danger " id = "find"><a class = "fa fa-search"></a></button>
                 </div><!-- /btn-group -->
               </div>
             </div><!-- /.box-body -->
