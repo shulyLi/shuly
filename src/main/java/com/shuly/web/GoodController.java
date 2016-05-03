@@ -30,7 +30,7 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/good")
 public class GoodController {
-
+    static int TYPE= 2;
     @Autowired
     KeyJudge keyJudge;
     @Autowired
@@ -62,8 +62,77 @@ public class GoodController {
         if(session.getAttribute("curUser")!=null){
             user=(User)session.getAttribute("curUser");
         }
-        Object ans = keyService.findGoodDetail(id,(user==null?-1:user.getId()),IP);
+        System.out.println(id);
+        Object ans = keyService.findGoodDetail(id);
         return JsonResult.ok(ans);
+    }
+
+    @RequestMapping("/showGood.json")
+    @ResponseBody
+    public Object showGood(HttpServletRequest request,HttpSession session,
+                                  @RequestParam(value = "goodId", required = true) Integer id) throws Exception {
+        String IP = keyJudge.getIpAddr(request);
+        if(IP==null) IP = new String("NULL");
+        User user = null;
+        if(session.getAttribute("curUser")!=null){
+            user=(User)session.getAttribute("curUser");
+        }
+        Good ans = keyService.findGoodById(id);
+        ans.toState();
+        return JsonResult.ok(ans);
+    }
+    @RequestMapping("/updateGood.json")
+    @ResponseBody
+    public Object updateGood(HttpServletRequest request,HttpSession session,
+                            @RequestParam(value = "goodId", required = true) Integer id,
+                            @RequestParam(value = "price", required = true) double price,
+                            @RequestParam(value = "number", required = true) Integer number,
+                            @RequestParam(value = "isshelf", required = true) Integer isshelf) throws Exception {
+        User user = null;
+        String IP = keyJudge.getIpAddr(request);
+        if(IP==null) IP = new String("NULL");
+        if(session.getAttribute("curUser")!=null){
+            user=(User)session.getAttribute("curUser");
+        }
+        else{
+            return JsonResult.error("没有登陆","/index.jsp");
+        }
+
+        Good tmp =keyService.findGoodById(id);
+        if(tmp.getUser_id()!=user.getId() && (user.getLevelr()&8)==0  ){
+            return JsonResult.error("您没有这个权限","/index.jsp");
+        }
+        if(tmp==null){
+            return JsonResult.error("没有这个商品");
+        }
+        String msg = keyService.updateGood(id,price,number,isshelf);
+        keyService.addOp(user.getId(),2,id,"更新商品"+tmp.getId()+"的信息",keyJudge.getIpAddr(request));
+        return JsonResult.error("完成");
+    }
+    @RequestMapping("/opGood.json")
+    @ResponseBody
+    public Object opGood(HttpServletRequest request,HttpSession session,
+                             @RequestParam(value = "goodId", required = true) Integer id,
+                             @RequestParam(value = "ischeck", required = true) Integer ischeck) throws Exception {
+        User user = null;
+        String IP = keyJudge.getIpAddr(request);
+        if(IP==null) IP = new String("NULL");
+        if(session.getAttribute("curUser")!=null){
+            user=(User)session.getAttribute("curUser");
+        }
+        else{
+            return JsonResult.error("没有登陆","/index.jsp");
+        }
+        if((user.getLevelr()&8)==0){
+            return JsonResult.error("对不起你没有这个权限","/index.jsp");
+        }
+        Good tmp =keyService.findGoodById(id);
+        if(tmp==null){
+            return JsonResult.error("没有这个商品");
+        }
+        String msg = keyService.opGoodCheck(id,ischeck);
+        keyService.addOp(user.getId(),TYPE,id,"审核商品"+tmp.getGoodname(),keyJudge.getIpAddr(request));
+        return   JsonResult.error("OK");
     }
     @RequestMapping("/add")
     public ModelAndView addGood(HttpServletRequest request,HttpSession session,
@@ -75,8 +144,6 @@ public class GoodController {
                                 @RequestParam(value = "shortMes",required=false) String shortMes,
                                 @RequestParam(value = "describe",required=false) String describle
                                 ) throws IOException{
-
-
         User user = null;
         ModelAndView ans =new ModelAndView();
         if(session.getAttribute("curUser")!=null){
@@ -86,6 +153,9 @@ public class GoodController {
             ans.setViewName("login");
             ans.addObject("info","您好像没有登陆");
             return ans;
+        }
+        if((user.getLevelr()&2)==0){
+            return null;
         }
         if(myfile.isEmpty()){
             System.out.println("文件未上传");
@@ -108,13 +178,13 @@ public class GoodController {
             tmp.setIsshelf(0);
             tmp.setProvince(s_province);
             tmp.setDetailPlace(s_city+','+s_county);
-
             tmp.setJudge("0|0|0|0|0");
             tmp.setGoodname(name);
             tmp.setMes(describle);
             tmp.setUser_id(user.getId());
             tmp.setCreate_time(new Timestamp(System.currentTimeMillis()));
-            keyService.addGood(tmp);
+            String msg =keyService.addGood(tmp);
+            keyService.addOp(user.getId(),TYPE,-1,"添加商品"+name,keyJudge.getIpAddr(request));
         }
         return ans;
     }
@@ -130,6 +200,9 @@ public class GoodController {
             //return JsonResult.ok("");
             return JsonResult.error("没有登陆","/index.jsp");
         }
+        if((user.getLevelr()&2)==0){
+            return JsonResult.error("您没有这个权限","/index.jsp");
+        }
         if(goodId==null){
             List<ManagerGoodTable> ans =new ArrayList<ManagerGoodTable>();
             List<Good> tmp = keyService.findGoodByUser(user.getId());
@@ -141,10 +214,34 @@ public class GoodController {
         }
         else{
             Good tmp=keyService.findGoodById(goodId);
+            if(tmp==null){
+                return JsonResult.error("没有这个物品啊","/index.jsp");
+            }
             return JsonResult.ok(tmp.toGoodTable());
         }
     }
-
+    @RequestMapping("/allGood.json")
+    @ResponseBody
+    public Object getMyGood(HttpServletRequest request,HttpSession session) {
+        User user = null;
+        if(session.getAttribute("curUser")!=null){
+            user=(User)session.getAttribute("curUser");
+        }
+        else{
+            //return JsonResult.ok("");
+            return JsonResult.error("没有登陆","/index.jsp");
+        }
+        if((user.getLevelr()&8)==0){
+            return JsonResult.error("你没有权限","/index.jsp");
+        }
+        List<ManagerGoodTable> ans =new ArrayList<ManagerGoodTable>();
+        List<Good> tmp = keyService.findAllGood();
+        if(tmp!=null)
+            for(Good item : tmp){
+                ans.add(item.toGoodTable());
+            }
+        return JsonResult.ok(ans);
+    }
     private String ramdomName(String head){
         String ans = head;
         Date tmp = new Date();

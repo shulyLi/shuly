@@ -21,11 +21,12 @@ public class Good {
     Timestamp create_time;
     String tag;
     String province;
-    Integer[] intJudge ;
+    public Integer[] intJudge ;
     int isshelf;
     double price;
     int number;
     int tradenum;
+    String tmp;
     public void to(){
         String []tmp=judge.trim().split("\\|");
         for(int i=0;i<tmp.length;++i){
@@ -35,7 +36,7 @@ public class Good {
     public void back(){
         StringBuilder tmp = new StringBuilder();
         for(int i=0;i<intJudge.length;++i){
-            tmp.append(intJudge[i].toString());
+            tmp.append(String.valueOf(intJudge[i]));
             if(i!=intJudge.length-1){
                 tmp.append("|");
             }
@@ -50,19 +51,34 @@ public class Good {
         key.setPrice(this.price);
         key.setNumber(this.number);
         key.setTradeNum(this.tradenum);
-        System.out.println(this.judge);
         String[] tmp = this.judge.trim().split("\\|");
-        if(tmp.length!=5){
+
+        if(tmp.length!=2){
             key.setJudge("Wrong");
         }
         else{
             StringBuilder out = new StringBuilder();
-            out.append("好评"+tmp[4]);
+            out.append("好评"+tmp[1]);
             out.append(",");
             out.append("差评"+tmp[0]);
             key.setJudge(out.toString());
         }
+        if(this.ischeck!=1){
+            key.setState(this.ischeck==0?"等待审核":"驳回");
+        }
+        else {
+            key.setState(isshelf==1?"上架":"下架");
+        }
         return key;
+    }
+
+    public void  toState(){
+        if(this.ischeck!=1){
+           setTmp(this.ischeck==0?"等待审核":"驳回");
+        }
+        else {
+            setTmp(isshelf==1?"上架":"下架");
+        }
     }
     public int getTradenum() {
         return tradenum;
@@ -88,7 +104,7 @@ public class Good {
         this.number = number;
     }
 
-    public Good(){id=-1;point=0;intJudge = new Integer[5];}
+    public Good(){id=-1;point=0;intJudge = new Integer[2];}
 
     public int getIsshelf() {
         return isshelf;
@@ -200,5 +216,13 @@ public class Good {
 
     public void setIntJudge(Integer[] intJudge) {
         this.intJudge = intJudge;
+    }
+
+    public String getTmp() {
+        return tmp;
+    }
+
+    public void setTmp(String tmp) {
+        this.tmp = tmp;
     }
 }

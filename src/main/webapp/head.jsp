@@ -67,5 +67,7 @@ desired effect
 |               | sidebar-collapse                        |
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
--->
 <body class="hold-transition skin-blue   sidebar-mini   layout-boxed">
+-->
+
+<body class="hold-transition skin-blue sidebar-mini   sidebar-collapse  layout-boxed ">

@@ -40,6 +40,7 @@ public class Mail {
         key.setSub("<b>"+this.head+"</b> - "+this.mes.substring(0,Math.min(this.mes.length(),22)));
         key.setName(this.head);
         key.setDate(this.create_time);
+        key.setIsread(this.isread);
         return key;
     }
 

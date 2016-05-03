@@ -17,6 +17,11 @@ import java.util.List;
 public class UserDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    public void updateBeMan(Integer id,String name,String tel,String add){
+        String strSql = "update user set levelr = levelr|2,realname=?,telnum=?,`add`=? where id =?;";
+        Object[] arg={name,tel,add,id};
+        jdbcTemplate.update(strSql,arg);
+    }
     public int getMatchCountForRegister(String telnum,String name) {
         String sqlStr = " SELECT count(*) FROM user "
                 + " WHERE telnum =? or username =?";
@@ -70,6 +75,11 @@ public class UserDao {
         jdbcTemplate.update(sqlStr, new Object[] { user.getLast_visit_time(),
                 user.getLast_ip()});
                 )*/
+    }
+    public void point(Integer point,Integer id){
+        String sqlStr = "UPDATE user set point=point+? where id =?";
+        Object[] args = {point,id};
+        jdbcTemplate.update(sqlStr,args);
     }
     public void remove(User user){
     //

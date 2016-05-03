@@ -31,7 +31,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/mail")
 public class MailController {
-
+    static int TYPE=5;
     @Autowired
     KeyJudge keyJudge;
     @Autowired
@@ -70,6 +70,7 @@ public class MailController {
             in.setMailtype(1);
             keyService.addMail(in);
         }
+        keyService.addOp(user.getId(),TYPE,-1,"发了封邮件给"+to,keyJudge.getIpAddr(request));
         return JsonResult.error("成功");
     }
     @RequestMapping(value = "/find.json")
@@ -110,6 +111,11 @@ public class MailController {
         if(user.getId()!=out.getOwner_id()){
             return JsonResult.error("该信息不属于你");
         }
+        if(out.getMailtype()<5) {
+            keyService.mailIsReadByID(out.getId());
+        }
+        if(out.getIsread()==0)
+            keyService.addOp(user.getId(),TYPE,id,"阅读了"+out.getHead(),keyJudge.getIpAddr(request));
         return JsonResult.ok(out);
     }
     private String ramdomName(String head){

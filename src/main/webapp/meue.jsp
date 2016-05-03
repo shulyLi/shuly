@@ -7,15 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header class="main-header">
-
     <!-- Logo -->
-    <a href="index.jsp" class="logo">
+    <a href="/index.jsp" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>A</b>LT</span>
+        <span class="logo-mini"><b>跟</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b>LTE</span>
+        <span class="logo-lg"><b></b>跟</span>
     </a>
-
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -25,96 +23,6 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <!-- Messages: style can be found in dropdown.less-->
-                <li class="dropdown messages-menu">
-                    <!-- Menu toggle button -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">4</span>
-                    </a>
-                    <ul class="dropdown-menu" >
-                        <li class="header">You have 4 messages</li>
-                        <li>
-                            <!-- inner menu: contains the messages -->
-                            <ul class="menu">
-                                <li><!-- start message -->
-                                    <a href="#">
-                                        <div class="pull-left">
-                                            <!-- User Image -->
-                                            <img src="/upload/head/default_head.jpg" class="img-circle" alt="User Image">
-                                        </div>
-                                        <!-- Message title and timestamp -->
-                                        <h4>
-                                            Support Team
-                                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                        </h4>
-                                        <!-- The message -->
-                                        <p>Why not buy a new awesome theme?</p>
-                                    </a>
-                                </li><!-- end message -->
-                            </ul><!-- /.menu -->
-                        </li>
-                        <li class="footer"><a href="/html/mail.jsp">See All Messages</a></li>
-                    </ul>
-                </li><!-- /.messages-menu -->
-
-                <!-- Notifications Menu -->
-                <li class="dropdown notifications-menu">
-                    <!-- Menu toggle button -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label label-warning">0</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 10 notifications</li>
-                        <li>
-                            <!-- Inner Menu: contains the notifications -->
-                            <ul class="menu">
-                                <li><!-- start notification -->
-                                    <a href="#">
-                                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                    </a>
-                                </li><!-- end notification -->
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">View all</a></li>
-                    </ul>
-                </li>
-                <!-- Tasks Menu -->
-                <li class="dropdown tasks-menu">
-                    <!-- Menu Toggle Button -->
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-flag-o"></i>
-                        <span class="label label-danger">9</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 9 tasks</li>
-                        <li>
-                            <!-- Inner menu: contains the tasks -->
-                            <ul class="menu">
-                                <li><!-- Task item -->
-                                    <a href="#">
-                                        <!-- Task title and progress text -->
-                                        <h3>
-                                            Design some buttons
-                                            <small class="pull-right">20%</small>
-                                        </h3>
-                                        <!-- The progress bar -->
-                                        <div class="progress xs">
-                                            <!-- Change the css width attribute to simulate progress -->
-                                            <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                <span class="sr-only">20% Complete</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li><!-- end task item -->
-                            </ul>
-                        </li>
-                        <li class="footer">
-                            <a href="#">View all tasks</a>
-                        </li>
-                    </ul>
-                </li>
                 <!-- User Account Menu -->
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
@@ -148,12 +56,15 @@
                     </ul>
                 </li>
                 <!-- Control Sidebar Toggle Button -->
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                <li id ="whatTheFuckerSay">
+                    <a href="#">
+                        <span></span>
+                    </a>
                 </li>
             </ul>
         </div>
     </nav>
+
 </header>
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -184,26 +95,37 @@
         <ul class="sidebar-menu">
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="treeview active">
+            <li class="treeview">
                 <a href="#"><i class="fa fa-link"></i>
                     <span>商品</span>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="/index.jsp"><i class="fa fa-circle-o"></i> 查找展示</a></li>
-                    <li><a href="/html/addGood.jsp"><i class="fa fa-circle-o"></i> 添加商品</a></li>
-                    <li><a href="/html/GoodManage.jsp"><i class="fa fa-circle-o"></i> 管理我的商品</a></li>
+                    <li class="TRADER"><a href="/html/good/addGood.jsp"><i class="fa fa-circle-o"></i> 添加商品</a></li>
+                    <li class="LOGINNEED    "><a  id ='gradeNum '  href="/html/good/LeverGood.jsp"><i class="fa fa-circle-o"></i> 我所能评价的商品</a></li>
+                    <li class="TRADER"><a href="/html/good/GoodManage.jsp"><i class="fa fa-circle-o"></i> 管理我的商品</a></li>
+                    <li class="ADMIN"><a href="/html/good/ManageGood.jsp"><i class="fa fa-circle-o"></i> 管理所有的商品</a></li>
                 </ul>
             </li >
-            <li class="treeview active">
-                <a href="mailbox.html">
+            <li class="treeview LOGINNEED">
+                <a href="mailbox.html ">
                     <i class="fa fa-envelope"></i> <span>Mailbox</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="/html/mail.jsp">信箱 <span class="label label-primary pull-right">13</span></a></li>
-                    <li><a href="/html/compose.jsp">写信</a></li>
+                    <li class="active"><a id ='mailNum' href="/html/Mail/mail.jsp">信箱 </a></li>
                 </ul>
             </li>
+            <li class="treeview LOGINNEED">
+                <a href="#"><i class="fa fa-link"></i>
+                    <span>协议</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/html/deal/fromMeDealManage.jsp"><i class="fa fa-circle-o"></i>我发的协议</a></li>
+                    <li class="TRADER"><a href="/html/deal/toMeDealManage.jsp"><i class="fa fa-circle-o"></i>给我的协议</a></li>
+                    <li class="ADMIN"><a href="/html/deal/allDeal.jsp"><i class="fa fa-circle-o"></i>所有的协议</a></li>
+                </ul>
+            </li >
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

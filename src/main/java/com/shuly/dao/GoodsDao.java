@@ -23,7 +23,6 @@ public class GoodsDao {
     }
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
     public List<Good>findGood(String []province,String findData,Integer pageNum) {
         System.out.println(pageNum);
         int num = province.length;
@@ -35,7 +34,7 @@ public class GoodsDao {
             sql.append((new StringBuffer(" and goodname = ? ")));
             num++;
         }
-        sql.append(" order by point ");
+        sql.append(" order by point desc ");
         sql.append("limit "+String.valueOf(pageNum*5)+",5 ");
         System.out.println(sql);
         Object[] params = new Object[num];
@@ -45,9 +44,14 @@ public class GoodsDao {
 
         return  (ans != null && ans.size() > 0) ? ans : null;
     }
-
+    public Integer findOwnerByGoodId(Integer goodId){
+        String sql= "select user_id from goods where  id =?";
+        Object[] params = new Object[] {goodId};
+        Integer ans = jdbcTemplate.queryForInt(sql, params);
+        return ans;
+    }
     public List<Good> getAll(){
-        String sql= "select * from goods where ischeck = 1 and isshelf =1";
+        String sql= "select * from goods order by create_time DESC ";
         Object[] params = new Object[] {};
         List<Good> ans = null;
         ans =jdbcTemplate.query(sql,params, new GoodRowMapper());
@@ -78,14 +82,31 @@ public class GoodsDao {
                 tmp.getJudge(),tmp.getCreate_time(),tmp.getTag(),tmp.getProvince(),tmp.getIsshelf()};
         jdbcTemplate.update(sqlStr, args);
     }
-    public void update(Good tmp){
-        String sqlStr = "UPDATE goods SET goodname=?,pic_url=?,mes=?"
-                + " WHERE id =?";
-        Object[] args = {tmp.getGoodname(),tmp.getPic_url(),tmp.getMes()};
-        jdbcTemplate.update(sqlStr, args);
+
+    public void updateSome(Integer id,double price,Integer number,Integer isshelf){
+        String sqlStr = "update goods set price = ?,`number` =?,isshelf=? where id =?";
+        Object[] args = {price,number,isshelf,id};
+        jdbcTemplate.update(sqlStr,args);
     }
     public void delete(Good tmp){
         //
+    }
+    public void updateIscheck(Integer id,Integer type){
+        String sqlStr = "UPDATE goods set ischeck=? where id =?";
+        Object[] args = {type,id};
+        jdbcTemplate.update(sqlStr,args);
+    }
+    public int  deleteById(Integer Id){
+        String sqlStr = "DELETE  from goods where id =?";
+        Object[] args = {Id};
+        return jdbcTemplate.update(sqlStr,args);
+    }
+
+
+    public void point(Integer point,String judge,Integer id){
+        String sqlStr = "UPDATE goods set point=? ,judge=? where id =?";
+        Object[] args = {point,judge,id};
+        jdbcTemplate.update(sqlStr,args);
     }
     public class GoodRowMapper implements RowMapper<Good> {
         @Override

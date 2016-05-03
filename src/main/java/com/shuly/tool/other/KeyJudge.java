@@ -34,6 +34,9 @@ public class KeyJudge {
         if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
+        if(ip==null){
+            ip="null";
+        }
         return ip;
     }
 

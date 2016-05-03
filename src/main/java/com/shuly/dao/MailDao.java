@@ -24,6 +24,11 @@ public class MailDao {
         Object[] args = {id,type};
         return jdbcTemplate.queryForInt(Str,args);
     }
+    public int notRead(int id){
+        String Str="select count(1) from mail where owner_id = ? and isread = 0";
+        Object[] args = {id};
+        return jdbcTemplate.queryForInt(Str,args);
+    }
     public void add(Mail Mail){
         String sqlStr = "insert into mail(owner_id,from_user,to_user,head,mes,create_time,isread,`mailtype`,fileRar)" +
                 " values(?,?,?,?,?,?,?,?,?) ";
@@ -41,8 +46,13 @@ public class MailDao {
         Object[] args = {type,state,id};
         jdbcTemplate.update(sqlStr, args);
     }
+    public void isRead(Integer id){
+        String sqlStr = "update mail set isread = 1 where id =?";
+        Object[] args = {id};
+        jdbcTemplate.update(sqlStr, args);
+    }
     public List<Mail> findMailByTypeOwner(int id,int type){
-        String sqlStr = "select * from mail where owner_id = ? and mailtype = ? ";
+        String sqlStr = "select * from mail where owner_id = ? and mailtype = ? order by create_time DESC ";
         Object[] args = {id,type};
         List<Mail> ans = jdbcTemplate.query(sqlStr,args,new MailRowMapper());
         return ans;

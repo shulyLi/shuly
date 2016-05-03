@@ -12,7 +12,7 @@ function DATA(tmp){
     return date.toDateString();
 }
 function addMailRow(item){
-    var Str = '<tr id ="mail'+item.id+'">'+
+    var Str = '<tr class="'+(item.isread=='1'?"":"danger")+'"id ="mail'+item.id+'">'+
         '<td><input type="checkbox"></td>'+
         '<td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>'+
         '<td class="mailbox-name"><a href="#">'+item.name+'</td>'+
@@ -65,6 +65,7 @@ function checkBoxInit(){
         checkboxClass:'icheckbox_flat-blue',
         radioClass:'iradio_flat-blue'
     });
+    $(".mailbox-star").unbind("click");
     $(".mailbox-star").click(function (e) {
         e.preventDefault();
         //detect type
@@ -83,6 +84,7 @@ function checkBoxInit(){
             $this.toggleClass("fa-star-o");
         }
     });
+    $(".mailbox-name").unbind("click");
     $(".mailbox-name").click(function(){
         getMail($(this).parent().attr("id").substring(4));
         $("#writeBox").hide();
@@ -92,7 +94,101 @@ function checkBoxInit(){
 }
 function showMail(Mail){
     //alert(Mail.mes)
-    $("#readbody").html(Mail.mes);
+    $("#mailbox-read-info h3").text("标题:"+Mail.head)
+    $("#mailbox-read-info h5").html('From: '+Mail.from_user+'<span class="mailbox-read-time pull-right">'+(new Date(Mail.create_time)).toLocaleString()+'</span>');
+    $("#important").hide();
+    if(Mail.mailtype==5){
+        if(Mail.isread==0)
+            $("#important").show();
+        var obj = eval("(" + Mail.mes + ")");
+        ///alert(obj.name)
+       // alert(obj.tel)
+       // alert(obj.local)
+        $("#readbody").empty();
+        $("#readbody").append("name:"+obj.name);
+        $("#readbody").append("<br>phone:"+obj.tel);
+        $("#readbody").append("<br>add:"+obj.local);
+        $("#pass").unbind("click");
+        $("#pass").click(function(){
+            var ID=Mail.head.substring(4,6);
+            alert(ID)
+            $.ajax( {
+                url:'/key/user/canBeMan.json',
+                data :{
+                    'mailId':Mail.id,
+                    'id':ID,
+                    'name':obj.name,
+                    'tel':obj.tel,
+                    'add':obj.local,
+                    'BOOL':1
+                },
+                dataType:"json",   //返回格式为json
+                async:true, //请求是否异步，默认为异步，这也是ajax重要特性
+                type:"get",   //请求方式
+                traditional:true,
+                success:function(data) {
+                    var flag = 0;
+                    if(data.msg!=""){
+                        alert(data.msg);
+                        flag = 1;
+                    }
+                    if(data.goto!=""){
+                        window.location.href=data.goto;
+                        flag =1 ;
+                    }
+                    if(flag ==1) return null;
+                    mailInit()
+                },
+            });
+        })
+        $("#nopass").unbind("click");
+        $("#nopass").click(function(){
+            $.ajax( {
+                url:'/key/user/canBeMan.json',
+                data :{
+                    'name':obj.name,
+                    'BOOL':0
+                },
+                dataType:"json",   //返回格式为json
+                async:true, //请求是否异步，默认为异步，这也是ajax重要特性
+                type:"get",   //请求方式
+                traditional:true,
+                success:function(data) {
+                    var flag = 0;
+                    if(data.msg!=""){
+                        alert(data.msg);
+                        flag = 1;
+                    }
+                    if(data.goto!=""){
+                        window.location.href=data.goto;
+                        flag =1 ;
+                    }
+                    if(flag ==1) return null;
+                    mailInit()
+                },
+            });
+        })
+    }
+    else if(Mail.mailtype==6){
+        if(Mail.isread==0)
+            $("#important").show();
+        var obj = eval("(" + Mail.mes + ")");
+    }
+    else
+        $("#readbody").html(Mail.mes);
+    if(Mail.filerar!=""&&Mail.filerar!=null){
+        $("#downer").empty();
+        $("#downer").append(
+            '<li><div class="mailbox-attachment-info">'+
+            '<a href="#" class="mailbox-attachment-name"><i class="fa fa-check-circle"></i>文件</a>'+
+            '<span class="mailbox-attachment-size">'+
+            '<a href="/key/down/download?path='+Mail.filerar+'" class="btn btn-default btn-xs pull-right"><i class="fa fa-cloud-download"></i></a>'+
+            '</span> '+
+            '</div> </li>'
+        );
+
+    }
+
 }
 function mailTable(){
     $.ajax( {
@@ -159,6 +255,7 @@ function sendMail(mType){
             if(flag ==1) return null;
         },
         complete:function() {
+            mailInit()
         },
         error:function() {
         }
@@ -188,7 +285,6 @@ function getMail(id){
                 flag =1 ;
             }
             if(flag ==1) return null;
-
             showMail(data.data);
         },
         complete:function() {
@@ -214,11 +310,13 @@ function writeMailClear(){
 }
 function mailInit(){
     //head
+    $("ul.nav.nav-stacked li").unbind("click");
     $("ul.nav.nav-stacked li").click(function(){
         $("ul.nav.nav-stacked li").removeClass("active");
         $(this).addClass("active");
         mailTable();
     });
+    $(".checkbox-toggle").unbind("click");
     $(".checkbox-toggle").click(function () {
         var clicks = $(this).data('clicks');
         if (clicks) {
@@ -243,18 +341,23 @@ function mailInit(){
 
     $("#mailSend").attr("onclick","sendMail(2);")
     $("#mailDraft").attr("onclick","sendMail(3);")
+
+    $("#pagemin").unbind("click");
     $("#pagemin").click(function(){
         if(pageNum>0){
             pageNum--;
             drawMail();
         }
     });
+
+    $("#pageadd").unbind("click");
     $("#pageadd").click(function(){
         if((pageNum+1)*10+1<mail.data.length){
             pageNum++;
             drawMail();
         }
     });
+    $("#refresh").unbind("click");
     $("#refresh").click(function(){
         mailTable();
     });

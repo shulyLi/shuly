@@ -24,13 +24,13 @@ function addDiv(item){
                     '<h3 class="box-title">'+item.goodname+'</h3>'+
                 '</div>'+
                 '<div class="box-body">'+
-                                '<a href="/html/showGoodDetail.jsp?goodId='+item.id +'" >'+
+                                '<a href="/html/good/showGoodDetail.jsp?goodId='+item.id +'" >'+
                                     '<img class ="img-responsive img-thumbnail" src="'+item.pic_url+'">'+
                                 '</a>'+
                 '</div>'+
                 '<div class="box-footer">' +
                     '<p >'+item.tag+'</p>'+
-                    '<p >点击：233，好评10</p>'+
+                    '<p >评分：'+item.point+'，好评:'+item.intJudge[1]+' 差评'+item.intJudge[0]+'</p>'+
                 '</div>'+
             '</div>'+
         '</section>';

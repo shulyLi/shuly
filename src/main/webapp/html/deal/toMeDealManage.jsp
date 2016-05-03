@@ -21,7 +21,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                GoodManager
+                dealManager
                 <small>hehda</small>
             </h1>
             <ol class="breadcrumb">
@@ -32,54 +32,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </section>
         <!-- Main content --  -->
         <section class="content" >
-            <row>
-                <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Data Table With Full Features</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <row>
-                        <table id="dataTable" class="table table-bordered table-striped">
+
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#toMydeal" data-toggle="tab">收到的协议</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="toMydeal">
+                        <table id="toDealTable" class="table ">
                             <thead>
-                            <tr>
-                                <th data-field="goodname">商品名字</th>
-                                <th data-field="place">源产地</th>
-                                <th data-field="price">单位价钱</th>
-                                <th data-field="number">库存</th>
-                                <th data-field="point">被点击次数</th>
-                                <th data-field="tradeNum">交易次数</th>
-                                <th data-field="judge">评价情况</th>
-                            </tr>
+                                <th data-field="goodName">商品名字</th>
+                                <th data-field="goodNum">数量</th>
+                                <th data-field="goodPrice">商品价格</th>
+                                <th data-field="goodState">目前状态</th>
+                                <th data-field="create_time">创建的时间</th>
                             </thead>
                             <tbody></tbody>
                             <tfoot>
                             </tfoot>
                         </table>
-                    </row>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-            </row>
+                    </div>
+
+                </div><!-- /.tab-content -->
+            </div><!-- /.nav-tabs-custom -->
         </section>
     </div><!-- /.content-wrapper -->
-
+    <%@include file="/html/modle/showDealModle.jsp"%>
     <%@include file="/foot.jsp"%>
 </div><!-- ./wrapper -->
 
-<!-- REQUIRED JS SCRIPTS -->
 <%@include file="/js.jsp"%>
-
-<script src="/js/manageGood.js" ></script>
-<!-- AdminLTE for demo purposes -->
-<!-- page script -->
-<!-- Page script -->
-
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. Slimscroll is required when using the
-     fixed layout. -->
+<script src="/js/manageDeal.js" ></script>
+<script>
+    initToDeal();
+</script>
 </body>
 <style type="text/css">
-table.dataTable tbody tr.selected {
+.nav-tabs-custom tbody tr.selected {
     background-color: #B0BED9;
 }
 </style>

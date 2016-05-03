@@ -13,6 +13,7 @@ public class ManagerGoodTable {
     int point;
     int tradeNum;
     String judge;
+    String state;
 
     public int getId() {
         return id;
@@ -76,5 +77,13 @@ public class ManagerGoodTable {
 
     public void setJudge(String judge) {
         this.judge = judge;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

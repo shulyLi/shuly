@@ -10,6 +10,7 @@ public class MailTable {
     String name;
     String sub;
     Timestamp date;
+    int isread;
     public int getId() {
         return id;
     }
@@ -40,5 +41,13 @@ public class MailTable {
 
     public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    public int getIsread() {
+        return isread;
+    }
+
+    public void setIsread(int isread) {
+        this.isread = isread;
     }
 }

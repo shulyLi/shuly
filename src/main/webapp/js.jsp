@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- jQuery 2.1.4 -->
-<script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="/js/jquery-2.2.2.min.js"></script>
 <!-- Bootstrap 3.3.5 -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 
@@ -29,7 +29,7 @@
 <script src="/plugins/iCheck/icheck.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/dist/js/demo.js"></script>
-<script src="/js/userInfo.js"></script>
+<script src="/js/menue.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <script>
